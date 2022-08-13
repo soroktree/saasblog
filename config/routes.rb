@@ -11,4 +11,6 @@ Rails.application.routes.draw do
 
   post "billing_portal/create", to: "billing_portal#create", as: "billing_portal_create"
 
+  resources :webhooks, only: [:create]
+
 end
