@@ -5,17 +5,18 @@ class WebhooksController < ApplicationController
     def create
         payload = request.body.read 
         sig_header = request.env['HTTP_STRIPE_SIGNATURE']
+        endpoint_secret = Rails.application.credentials.dig(:stripe, :webhook)
         event = nil 
 
         begin
             event = Stripe::Webhook.construct_event(
-                payload, sig_header, Rails.application.credentials.dig(:stripe, :webhook)
+                payload, sig_header, endpoint_secret
             )
         rescue JSON::ParserError => e
-            status 400
+            render plain: "Invalid JSON.", status: 400
             return
         rescue Stripe::SignatureVerificationError => e
-           puts "Signature error"
+           puts "Signature error controller"
            p e 
            return
         end
@@ -33,7 +34,6 @@ class WebhooksController < ApplicationController
                     plan: subcription.items.data[0].price.lookup_key
                 )
         end 
-        
         render json: { message: 'success' }
     end
 end
