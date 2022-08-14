@@ -33,6 +33,7 @@ class WebhooksController < ApplicationController
                     plan: subcription.items.data[0].price.lookup_key
                 )
         end 
-        render json: {message: 'success'}
+        
+        render json: { message: 'success' }
     end
 end
