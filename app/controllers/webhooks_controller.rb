@@ -22,17 +22,21 @@ class WebhooksController < ApplicationController
         end
         
         case event.type
+        when 'customer.created'
+            customer = event.data.object 
+            @user = User.find_by(email: customer.email)
+            @user.update(stripe_customer_id: customer.id)
         when 'checkout.session.completed'
-                session = event.data.object
-                @user = User.find_by(stripe_customer_id: session.customer)
-                @user.update(subscription_status: 'active')
+            session = event.data.object
+            @user = User.find_by(stripe_customer_id: session.customer)
+            @user.update(subscription_status: 'active')
         when 'customer.subscription.updated', 'customer.subscription.deleted'
-                subscription = event.data.object
-                @user = User.find_by(stripe_customer_id: subscription.customer)
-                @user.update(
-                    subscription_status: subscription.status,
-                    plan: subscription.items.data[0].price.lookup_key
-                )
+            subscription = event.data.object
+            @user = User.find_by(stripe_customer_id: subscription.customer)
+            @user.update(
+                subscription_status: subscription.status,
+                plan: subscription.items.data[0].price.lookup_key
+            )
         end 
         render json: { message: 'success' }
     end
