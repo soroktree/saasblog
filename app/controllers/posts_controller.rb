@@ -1,6 +1,20 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[ show edit update destroy ]
 
+
+
+  def upvote 
+        @post = Post.find(params[:id])
+        if current_user.voted_up_on? @post 
+          @post.unvote_by current_user
+        else
+          @post.upvote_by current_user 
+        end  
+        respond_to do |format|
+          format.js { render 'vote' }
+        end  
+  end
+
   # GET /posts or /posts.json
   def index
     if current_user.subscription_status == "active"
