@@ -6,10 +6,11 @@
   <% @posts.each do |post| %>
     <%= render post %>
     <p>
+      <%= render "posts/votes_score", post: post%>    
       <%= render "posts/upvote_link", post: post%>
-      <%= link_to "Show this post", post %>
+      <%= button_to "Show", post %>
     </p>
   <% end %>
 </div>
 
-<%= link_to "New post", new_post_path %>
+<%= button_to "New post", new_post_path %>

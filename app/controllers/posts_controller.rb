@@ -13,14 +13,15 @@ class PostsController < ApplicationController
         respond_to do |format|
           format.js { render 'vote' }
         end  
+
   end
 
   # GET /posts or /posts.json
   def index
     if current_user.subscription_status == "active"
-      @posts = Post.all
+      @posts = @posts = Post.all.order(id: :desc)
     else
-      @posts = Post.free 
+      @posts = Post.free.order(id: :desc)
     end
   end
 
