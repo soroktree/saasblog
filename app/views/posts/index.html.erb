@@ -2,12 +2,15 @@
 
 <h1>Posts</h1>
 
+<%= button_to "New post", new_post_path, method: :get, data: { turbo: false }, form: {style: 'display:inline-block;'}  %>
+
 <div id="posts">
   <% @posts.each do |post| %>
     <%= render post %>
     <p>
-      <%= render "posts/votes_score", post: post%>    
-      <%= render "posts/upvote_link", post: post%>
+      <%# AJAX  %>
+      <%# <%= render "posts/votes_score", post: post%>     %>
+      <%# <%= render "posts/upvote_link", post: post%> %>
       <%= button_to "Show", post %>
     </p>
   <% end %>

@@ -1,25 +1,52 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show edit update destroy ]
+  before_action :set_post, only: %i[ show edit update destroy upvote downvote]
 
+  def downvote 
+    if current_user.voted_down_on? @post
+        @post.unvote_by current_user
+    else
+      @post.downvote_by current_user     
+    end
+    respond_to do |format|
+      format.html do
+        redirect_to @post 
+      end
+      format.turbo_stream do 
+        render turbo_stream: turbo_stream.replace(@post, partial: 'posts/post', locals: { post: @post } )
+      end
+    end  
+  end
 
 
   def upvote 
-        @post = Post.find(params[:id])
-        if current_user.voted_up_on? @post 
-          @post.unvote_by current_user
-        else
-          @post.upvote_by current_user 
-        end  
-        respond_to do |format|
-          format.js { render 'vote' }
-        end  
-
+    if current_user.voted_up_on? @post
+        @post.unvote_by current_user
+    else
+      @post.upvote_by current_user     
+    end
+    respond_to do |format|
+      # format.html do
+      #   redirect_to @post 
+      # end
+      format.turbo_stream do 
+        render turbo_stream: turbo_stream.replace(@post, partial: 'posts/post', locals: { post: @post } )
+      end
+    end 
+        # @post = Post.find(params[:id])
+        # if current_user.voted_up_on? @post 
+        #   @post.unvote_by current_user
+        # else
+        #   @post.upvote_by current_user 
+        # end  
+        # respond_to do |format|
+        #   format.js { render 'vote' }
+        # end  
   end
 
   # GET /posts or /posts.json
   def index
     if current_user.subscription_status == "active"
-      @posts = @posts = Post.all.order(id: :desc)
+      @posts = Post.all.order(id: :desc)
     else
       @posts = Post.free.order(id: :desc)
     end

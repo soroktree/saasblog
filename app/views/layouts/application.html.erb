@@ -7,6 +7,8 @@
     <%= csp_meta_tag %>
 
 
+    <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
+
     <script src="https://js.stripe.com/v3/"></script>
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
@@ -15,28 +17,29 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <%= Time.zone.now %>
     <br>
-
-    <%= link_to "Posts", posts_path %>
-    <%= link_to "Pricing", pricing_path %>
-    <% if current_user %>
-      <%= button_to "Billing portal", billing_portal_create_path, method: :post, data: { turbo: false } %>
-      <%= link_to current_user.email, edit_user_registration_path %>
-      <%= link_to "Log out", destroy_user_session_path, method: :delete %>
-       <br>
-        Stripe customer id:
-        <%= current_user.stripe_customer_id%>
+  <div style="display:inline-block;">
+      <%= button_to "Posts", posts_path, form: {style: 'display:inline-block;'} %>
+      <%= button_to "Pricing", pricing_path, form: {style: 'display:inline-block;'}  %>
+      <% if current_user %>
+        <%= button_to "Billing portal", billing_portal_create_path, method: :post, data: { turbo: false }, form: {style: 'display:inline-block;'}  %>
+        <%= button_to current_user.email, edit_user_registration_path, method: :get, form: {style: 'display:inline-block;'}  %>
+        <%= button_to "Log out", destroy_user_session_path, method: :get, data: { turbo: false }, form: {style: 'display:inline-block;'}  %>
         <br>
-        Plan:
-        <%= current_user.plan%>
-        <br>
-        Subscription status:
-        <%= current_user.subscription_status%>
-    <% else %>
-      <%= link_to "Log in", new_user_session_path %>
-      <%= link_to "Register", new_user_registration_path %>
-    <% end %>
-    <hr>
+          Stripe customer id:
+          <%= current_user.stripe_customer_id%>
+          <br>
+          Plan:
+          <%= current_user.plan%>
+          <br>
+          Subscription status:
+          <%= current_user.subscription_status%>
+      <% else %>
+        <%= button_to "Log in", new_user_session_path %>
+        <%= button_to "Register", new_user_registration_path %>
+      <% end %>
+  </div>    
     <%= yield %>
   </body>
 </html>

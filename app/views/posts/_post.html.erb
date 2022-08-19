@@ -14,4 +14,20 @@
     <%= post.premium %>
   </p>
 
+  <p>
+        All Votes:
+        <%= post.cached_votes_score %>
+  <p>
+  <p>
+        Upvotes:
+        <%= post.votes_for.up.size%>
+  <p>
+  <p>
+        Downvotes:
+        <%= post.votes_for.down.size%>
+  <p>  
+
+        <%= button_to "Upvote", upvote_post_path(post), method: :patch %>    
+        <%= button_to "Downvote", downvote_post_path(post), method: :patch %>         
+
 </div>

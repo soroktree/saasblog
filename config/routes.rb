@@ -8,7 +8,9 @@ Rails.application.routes.draw do
 
   resources :posts do
     member do 
-      patch  "upvote", to: "posts#upvote"
+      patch  "upvote"
+      patch  "downvote"
+      #, to: "posts#upvote"
     end
   end
   
