@@ -11,7 +11,7 @@ The functionality includes:
 * Authorization: Devise
 
 * Payment Platform: Stripe using gem 'Stripe' wich includes
-  - Stripe products means different subscription plans
+  - Create Stripe products that means different subscription plans
   - Stripe checkout session Billing Portal where we can select subscription plan and pay for it
   - Stripe Webhooks to update payment details 
 
