@@ -17,9 +17,15 @@ The functionality includes:
 
 * Seeds with Faker
 
-* Upvote and Downvote for posts with gem 'acts_as_votable'
+* Upvote and Downvote on posts by different users with gem 'acts_as_votable'
 
-* Tailwind css framework
+<img src="https://github.com/soroktree/saasblog/blob/main/app/assets/images/saas1.png" alt="screenshots" style="max-width: 100%;">
+-
+<img src="https://github.com/soroktree/saasblog/blob/main/app/assets/images/saas2.png" alt="screenshots" style="max-width: 100%;">
+
+
+
+
 
 
 
