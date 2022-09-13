@@ -1,24 +1,25 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+The application provides the functionality of a blog with subcription for the premium content. The idea was taken from yshmarov (Yaroslav Shmarov). The functionality has been expanded and developed from scratch.
 
-Things you may want to cover:
+The functionality includes: 
 
-* Ruby version
+* Ruby version 2.7
 
-* System dependencies
+* Database: Postgresql
 
-* Configuration
+* Authorization: Devise
 
-* Database creation
+* Payment Platform: Stripe using gem 'Stripe' wich includes
+  - Stripe products means different subscription plans
+  - Stripe checkout session Billing Portal where we can select subscription plan and pay for it
+  - Stripe Webhooks to update payment details 
 
-* Database initialization
+* Seeds with Faker
 
-* How to run the test suite
+* Upvote and Downvote for posts with gem 'acts_as_votable'
 
-* Services (job queues, cache servers, search engines, etc.)
+* Tailwind css framework
 
-* Deployment instructions
 
-* ...
+
